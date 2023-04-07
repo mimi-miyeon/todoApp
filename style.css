@@ -1,0 +1,27 @@
+/* firefox */
+.tasks__container {
+  scrollbar-width: 10px;
+  scrollbar-color: #f1f5f9 #94a3b8;
+}
+
+/* chrome, edge, safari */
+.tasks__container::-webkit-scrollbar {
+  width: 15px;
+}
+
+.tasks__container::-webkit-scrollbar-track {
+  width: 10px;
+  background: #f1f5f9;
+  border-radius: 5px;
+}
+
+.tasks__container::-webkit-scrollbar-thumb {
+  width: 10px;
+  background-color: #94a3b8;
+  border-radius: 14px;
+  border: 3px solid #f1f5f9;
+}
+
+input:focus {
+  outline: 0;
+}
