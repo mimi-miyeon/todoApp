@@ -1,2 +1,63 @@
-<script>
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>todo app</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-slate-50">
+  <div class="body-container m-10">
+    <header>
+      <h1 class="text-3xl font-bold"><span id="greeting">Hello, </span><input type="text" id="name" value="Sunshine" /></h1>
+    </header>
+
+    <main class="">
+      <section id="dashboard" class="dashboard mt-5">
+        <h2 class="section-title text-slate-400 mb-2">Category</h2>
+        <ul class="dashboard__container flex">
+          <li class="dashboard__container__item item--business">
+            <p class="item__count"><span class="item__count__num">40</span> tasks</p>
+            <h3 class="item__title">Business</h3>
+            <div class="item__task-bar"><span class="task-bar__finished"></span></div>
+          </li>
+          <li class="dashboard__container__item item--personal">
+            <p class="item__count"><span class="item__count__num">10</span> tasks</p>
+            <h3 class="item__title">Personal</h3>
+            <div class="item__task-bar"><span class="task-bar__finished"></span></div>
+          </li>
+        </ul>
+      </section>
+
+      <section id="tasks" class="tasks">
+        <h2 class="section-title text-slate-400">Tasks</h2>
+        <ul class="tasks-container">
+          <li class="task task--business">
+            <label>
+              <input type="checkbox">
+            </label>
+            <p>Meeting</p>
+          </li>
+          <li class="task task--personal">
+            <label>
+              <input type="checkbox">
+            </label>
+            <p>Dinner</p>
+          </li>
+        </ul>
+      </section>
+
+      <button id="createBtn">
+        <span class="material-icons">add</span>
+      </button>
+    </main>
+  </div>
+</body>
+</html>
