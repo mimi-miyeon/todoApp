@@ -6,99 +6,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>todo app</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script defer src="main.js"></script>
+  <script type="text/javascript">
+    let page = 'main';
+  </script>
 </head>
 
 <body class="bg-slate-100">
-  <div class="body-container m-10">
+  <div class="body-container p-8 md:p-10">
     <header class="mb-10">
-      <h1 class="text-3xl font-bold"><span id="greeting">Hello, </span><input type="text" id="name" class="bg-transparent" value="Sunshine" /></h1>
+      <h1 class="text-3xl font-bold"><span id="greeting">Hello, </span><input type="text" id="name" class="py-2 px-1 bg-transparent w-full md:w-auto" /></h1>
     </header>
 
     <main class="">
       <section id="dashboard" class="dashboard mb-20">
         <h2 class="text-slate-400 mb-5">CATEGORIES</h2>
-        <ul class="flex">
-          <li class="bg-white shadow-xl mr-7 px-7 py-5 text-left rounded-3xl">
-            <p class="text-slate-400"><span class="">40</span> tasks</p>
+        <ul class="flex md:justify-normal justify-between">
+          <li class="bg-white shadow-xl md:mr-7 px-7 py-5 text-left rounded-3xl">
+            <p class="text-slate-400"><span id="taskNumB">40</span> tasks</p>
             <h3 class="text-2xl font-bold mb-8">Business</h3>
-            <div class="w-40 h-1 bg-slate-200"><span class="block w-10 h-full bg-red-400"></span></div>
+            <div class="process-bar process-bar--business w-full md:w-40 h-1 bg-slate-200"><span class="unchecked relative block w-10 h-full bg-red-400 duration-300"></span></div>
           </li>
-          <li class="bg-white shadow-xl mr-7 px-7 py-5 text-left rounded-3xl">
-            <p class="text-slate-400"><span class="">10</span> tasks</p>
-            <h3 class="text-2xl font-bold mb-8">Peronal</h3>
-            <div class="w-40 h-1 bg-slate-200"><span class="block w-10 h-full bg-blue-400"></span></div>
+          <li class="bg-white shadow-xl px-7 py-5 text-left rounded-3xl">
+            <p class="text-slate-400"><span id="taskNumP">10</span> tasks</p>
+            <h3 class="text-2xl font-bold mb-8">Personal</h3>
+            <div class="process-bar process-bar--personal w-full md:w-40 h-1 bg-slate-200"><span class="unchecked relative block w-10 h-full bg-blue-400 duration-300"></span></div>
           </li>
         </ul>
       </section>
 
       <section id="tasks" class="tasks">
         <h2 class="text-slate-400 mb-5">TODAY'S TASKS</h2>
-        <ul class="tasks__container h-[50vh] overflow-y-auto">
-          <li class="flex items-center mb-4 p-4 bg-white rounded-2xl text-lg">
+        <ul class="tasks__container">
+          <!-- <li class="task task--business task--checked flex items-center mb-4 p-4 bg-white rounded-2xl text-lg">
             <label class="w-4 h-4 mr-2 border border-red-400 rounded-xl">
               <input type="checkbox" hidden />
             </label>
             <p>Meeting</p>
           </li>
-          <li class="flex items-center mb-4 p-4 bg-white rounded-2xl text-lg">
+          <li class="task task--personal flex items-center mb-4 p-4 bg-white rounded-2xl text-lg">
             <label class="w-4 h-4 mr-2 border border-blue-400 rounded-xl">
               <input type="checkbox" hidden />
             </label>
             <p>Dinner</p>
           </li>
-          <li class="flex items-center mb-4 p-4 bg-white rounded-2xl text-lg">
-            <label class="w-4 h-4 mr-2 border border-slate-400 bg-slate-400 rounded-xl">
+          <li class="task task--personal task--checked flex items-center mb-4 p-4 bg-white rounded-2xl text-lg">
+            <label class="relative w-4 h-4 mr-2 border border-slate-200 bg-slate-200 rounded-xl">
+              <span class="absolute material-icons-outlined">
+                check
+                </span>
               <input type="checkbox" hidden />
             </label>
             <p>Dinner</p>
-          </li>
-          <li class="flex items-center mb-4 p-4 bg-white rounded-2xl text-lg">
-            <label class="w-4 h-4 mr-2 border border-slate-400 bg-slate-400 rounded-xl">
-              <input type="checkbox" hidden />
-            </label>
-            <p>Dinner</p>
-          </li>
-          <li class="flex items-center mb-4 p-4 bg-white rounded-2xl text-lg">
-            <label class="w-4 h-4 mr-2 border border-slate-400 bg-slate-400 rounded-xl">
-              <input type="checkbox" hidden />
-            </label>
-            <p>Dinner</p>
-          </li>
-          <li class="flex items-center mb-4 p-4 bg-white rounded-2xl text-lg">
-            <label class="w-4 h-4 mr-2 border border-slate-400 bg-slate-400 rounded-xl">
-              <input type="checkbox" hidden />
-            </label>
-            <p>Dinner</p>
-          </li>
-          <li class="flex items-center mb-4 p-4 bg-white rounded-2xl text-lg">
-            <label class="w-4 h-4 mr-2 border border-slate-400 bg-slate-400 rounded-xl">
-              <input type="checkbox" hidden />
-            </label>
-            <p>Dinner</p>
-          </li>
-          <li class="flex items-center mb-4 p-4 bg-white rounded-2xl text-lg">
-            <label class="w-4 h-4 mr-2 border border-slate-400 bg-slate-400 rounded-xl">
-              <input type="checkbox" hidden />
-            </label>
-            <p>Dinner</p>
-          </li>
-          <li class="flex items-center mb-4 p-4 bg-white rounded-2xl text-lg">
-            <label class="w-4 h-4 mr-2 border border-slate-400 bg-slate-400 rounded-xl">
-              <input type="checkbox" hidden />
-            </label>
-            <p>Dinner</p>
-          </li>
-        </ul>
+          </li> -->
+        </ul>      
       </section>
 
-      <button id="createBtn" class="fixed bottom-10 right-10 w-16 h-16 bg-cyan-600 text-white text-xl rounded-full shadow-xl">
+      <a href="todoForm.html" id="createBtn" class="flex items-center justify-center fixed bottom-8 md:bottom-10 right-8 md:right-10 w-16 h-16 bg-cyan-600 text-white text-xl rounded-full shadow-xl">
         <span class="material-icons text-3xl">add</span>
-      </button>
+      </a>
     </main>
   </div>
 </body>

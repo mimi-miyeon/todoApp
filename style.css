@@ -23,5 +23,37 @@
 }
 
 input:focus {
-  outline: 0;
+  border-radius: 0;
+  outline-color: #60a5fa;
+}
+
+.process-bar span::after {
+  content: '';
+  position: absolute; right: 0; bottom: 0; top: 0;
+  margin: auto;
+  width: 8px; height: 8px;
+  border-radius: 10px;
+}
+.process-bar--business span::after {
+  background-color: #f87171;
+}
+.process-bar--personal span::after {
+  background-color: #60a5fa;
+}
+.task--checked label span {
+  color: grey;
+  font-size: 14px;
+}
+.task--checked p {
+  color: #777;
+  text-decoration: line-through;
+}
+
+.checked.taskType--business {
+  color: #fff;
+  background-color: #f87171;
+} 
+.checked.taskType--personal {
+  color: #fff;
+  background-color: #60a5fa;
 }

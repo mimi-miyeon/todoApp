@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>todo app</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="main.js"></script>
+  <script type="text/javascript">
+    let page = 'form';
+  </script>
+</head>
+
+<body class="bg-slate-100">
+  <div class="w-full h-screen flex flex-col body-container  p-8 md:p-10">
+    <header class="flex justify-end mb-10">
+      <a href="/" class="hover:bg-slate-200 active:bg-slate-400 transition-all duration-300 flex justify-center items-center w-10 h-10 border border-black rounded-full">
+        <span class="material-icons-outlined text-2xl">
+          close
+          </span>
+      </a>
+    </header>
+
+    <main class="">
+      <form class="w-full h-[50vh] flex flex-col justify-between">
+        <div class="mb-7">
+          <input id="taskInput" class="w-full mb-7 p-5 text-3xl" type="text" placeholder="Enter new task" />
+  
+          <div class="taskType-container flex">
+            <label class="taskType--business mr-5 py-3 px-5 border border-red-400 rounded-full transition-all duration-300 active:bg-red-400 hover:bg-red-200 cursor-pointer"><input name="taskType" type="radio" value="business" hidden checked /><p class="">Business</p></label>
+            <label class="taskType--personal py-3 px-5 border border-blue-400 rounded-full transition-all duration-300 hover:bg-blue-200 active:bg-blue-400 cursor-pointer"><input name="taskType" type="radio" value="personal" hidden /><p class="">Personal</p></label>
+          </div>
+        </div>
+
+        <button type="submit" id="addBtn" class="fixed bottom-8 md:bottom-10 right-8 md:right-10 sw-fit px-10 py-5 text-white text-lg rounded-full bg-blue-400 transition-all duration-300 hover:bg-blue-200 hover:text-blue-900 active:bg-blue-400 border-blue-400 border">Add Task</button>
+      </form>
+    </main>
+  </div>
+</body>
+</html>
