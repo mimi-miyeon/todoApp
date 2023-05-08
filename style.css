@@ -1,5 +1,6 @@
 /* firefox */
 .tasks__container {
+  position: relative;
   scrollbar-width: 10px;
   scrollbar-color: #f1f5f9 #94a3b8;
 }
@@ -21,7 +22,51 @@
   border-radius: 14px;
   border: 3px solid #f1f5f9;
 }
-
+.tasks__container li {
+  width: 100%;
+  transition: .3s;
+}
+.tasks__container label {
+  position: relative;
+  cursor: pointer;
+}
+.tasks__container label::after {
+  content: '';
+  width: 1rem; height: 1rem;
+  position: absolute; left: 0; top: 0; bottom: 0;
+  margin: auto;
+  border: 1px solid; border-radius: 0.75rem;
+}
+.task--business label::after {
+  border-color: #f87171;
+}
+.task--personal label::after {
+  border-color: #60a5fa;
+}
+.tasks__container label>input {
+  padding-left: 1.5rem;
+  background-color: transparent;
+}
+.tasks__container label>input:focus {
+  outline: 0;
+}
+.modify-container {
+  position: absolute;
+  right: 1rem;
+  z-index: -1;
+  /* opacity: 0; */
+  /* transition: z-index .3s step-end; */
+  /* transition-property: z-index; */
+  /* transition-timing-function: step-end; */
+  transition-duration: 0s;
+}
+.edit-wrap button {
+  opacity: 0;
+  transition: 1s;
+}
+button {
+  cursor: pointer;
+}
 input:focus {
   border-radius: 0;
   outline-color: #60a5fa;
@@ -41,8 +86,14 @@ input:focus {
   background-color: #60a5fa;
 }
 .task--checked label span {
+  top: 7px; left: 1px;
   color: grey;
   font-size: 14px;
+  z-index: 1;
+}
+.task--checked label::after {
+  border-color: #e2e8f0;
+  background-color: #e2e8f0;
 }
 .task--checked p {
   color: #777;
