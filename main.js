@@ -59,9 +59,9 @@ function drawTodos () {
     li.classList.add('task', 'flex', 'justify-between','items-center', 'mb-4', 'p-4', 'bg-white', 'rounded-2xl', 'text-lg');
     todo.category === 'business' ? li.classList.add('task--business') : li.classList.add('task--personal');
     li.innerHTML = `
-      <label>
+      <label class="w-11/12">
         <input type="checkbox" hidden />
-        <input type="text" value="${todo.title}" disabled />
+        <input type="text" class="w-full" value="${todo.title}" disabled />
       </label>
       <div class="modify-container flex md:flex hidden md:z-10">
         <button class="more-btn md:flex hidden material-icons-outlined">more_vert</button>
@@ -84,17 +84,17 @@ function drawTodos () {
     } else {
       li.classList.remove('task--checked');
       input.checked = false;
-      // label.classList.remove('relative');
     }
 
     let startX;
     let moveX;
     let combineHandler = (startX, moveX) => {
       if(moveX < startX) {
-        li.style.width = 'calc(100% - 90px)';
+        li.classList.add('w-11/12');
         li.querySelector('.modify-container').style.zIndex = 1;
         li.querySelector('.modify-container').style.transitionDuration = '1s';
         li.querySelector('.modify-container').style.display = 'flex';
+
 
         if(li.querySelector('.edit-wrap')){
           li.querySelector('.edit-wrap').remove();
@@ -116,140 +116,93 @@ function drawTodos () {
       });
     });
 
-    const deleteBtn = li.querySelector('.delete-btn');
-    deleteBtn.addEventListener('click', ()=>{
-      todos = todos.filter(t => t != todo);
-      localStorage.setItem('todos', JSON.stringify(todos));
-      drawTodos();
-    });
-
-    const editBtn = li.querySelector('.edit-btn');
-    // editBtn.addEventListener('click',(e)=>{
-    //   const inputText = li.querySelector('input[type="text"]');
-    //   inputText.disabled = false;
-    //   inputText.focus();
-      
-    //   li.style.width = '100%';
-    //   li.querySelector('.modify-container').style.zIndex = -1;
-    //   li.querySelector('.modify-container').style.transitionDuration = '0s';
-    //   li.querySelector('.modify-container').style.display = 'hidden';
-
-    //   const div = document.createElement('div');
-    //   div.classList.add('edit-wrap','flex');
-    //   div.innerHTML = `
-    //     <button class="closeBtn material-icons-outlined mr-4">close</button>
-    //     <button class="okBtn material-icons-outlined">circle</button>`
-    //   li.appendChild(div);
-    //   setTimeout(()=>{
-    //     div.querySelectorAll('button').forEach(btn=>{
-    //       btn.style.opacity = 1
-    //     });
-    //   },200);
-
-    //   const okBtn = div.querySelector('.okBtn');
-    //   const closeBtn = div.querySelector('.closeBtn');
-
-    //   inputHandler(okBtn, closeBtn, inputText, div);
-    //   e.stopImmediatePropagation();
-    // });
-
-    function editHandler() {
-      const inputText = li.querySelector('input[type="text"]');
-      inputText.disabled = false;
-      inputText.focus();
-      inputText.addEventListener('blur',()=>{
-        inputText.disabled = true;
-
-        // more-btn and delete, edit btns
-      });
-
+    function modifyHandler() {
       const modifyContainer = li.querySelector('.modify-container');
-      modifyContainer.innerHTML = `
-        <button class="closeBtn material-icons-outlined mr-4">close</button>
-        <button class="okBtn material-icons-outlined">circle</button>
+      modifyContainer.innerHTML=`
+        <button class="more-btn md:flex hidden material-icons-outlined">more_vert</button>
+        <button class="delete-btn md:hidden block pr-2 text-slate-600 material-icons-outlined">delete_outline</button>
+        <button class="edit-btn md:hidden block text-slate-600 material-icons-outlined">edit</button>
       `;
 
-      const okBtn = modifyContainer.querySelector('.okBtn');
-      const closeBtn = modifyContainer.querySelector('.closeBtn');
-
-      okBtn.addEventListener('click',()=>{
-        alert('Successfully changed!');
-        modifyContainer.innerHTML = `
-          <button class="more-btn md:flex hidden material-icons-outlined">more_vert</button>
-          <button class="delete-btn md:hidden block pr-2 text-slate-600 material-icons-outlined">delete_outline</button>
-          <button class="edit-btn md:hidden block text-slate-600 material-icons-outlined">edit</button>
-        `;
+      const moreBtn = li.querySelector('.more-btn');
+      moreBtn.addEventListener('click', ()=>{
+        li.querySelector('.modify-container').style.zIndex = 1;
+        li.querySelector('.modify-container').style.transitionDuration = '1s';
+        li.querySelector('.modify-container').style.display = 'flex';
+        li.querySelector('.delete-btn').classList.remove('md:hidden');
+        li.querySelector('.edit-btn').classList.remove('md:hidden');
+        li.style.width = '100%';
+        moreBtn.style.display = 'none';
       });
-    }
+  
+      const deleteBtn = li.querySelector('.delete-btn');
+      deleteBtn.addEventListener('click', ()=>{
+        todos = todos.filter(t => t != todo);
+        localStorage.setItem('todos', JSON.stringify(todos));
+        drawTodos();
+      });
 
-    editBtn.addEventListener('click',()=>{
-      editHandler();
-    });
+      const editBtn = li.querySelector('.edit-btn');
+      editBtn.addEventListener('click',()=>{
+        editHandler();
+      });
+    };
+    modifyHandler();
 
-    function inputHandler(okBtn, closeBtn, inputText, div) {
-      okBtn.addEventListener('click', ()=>{
+    function editHandler() {
+      const modifyContainer = li.querySelector('.modify-container');
+      modifyContainer.innerHTML = `
+        <button class="cancelBtn material-icons-outlined mr-4">close</button>
+        <button class="okBtn material-icons-outlined">circle</button>
+      `;
+      const textInput = li.querySelector('input[type="text"]');
+      const okBtn = modifyContainer.querySelector('.okBtn');
+      const cancelBtn = modifyContainer.querySelector('.cancelBtn');
+      textInput.disabled = false;
+      textInput.focus();
+      textInput.addEventListener('blur',(e)=>{
+        textInput.disabled = true;
+        if(e.relatedTarget === okBtn) {
+          okBtnHandler(e);
+          li.classList.add('w-full');
+        } else if (e.relatedTarget === cancelBtn) {
+          cancelBtnHandler(e);
+        } else if (e.target === textInput) {} else {
+          modifyHandler();
+        }
+      }, {once:true});
+      
+      function okBtnHandler (e) {
         alert('Successfully changed!');
-        todo.title = inputText.value;
+        todo.title = textInput.value;
+        textInput.setAttribute('value', todo.title)
         todos.filter(t => t = todo);
         localStorage.setItem('todos', JSON.stringify(todos));
-        
-        div.style.display = 'none'
-        div.style.opacity = 0;
-        inputText.disabled = true;
-      });
+        modifyHandler();
+        console.log('ok func');
+      };
 
-      closeBtn.addEventListener('click', ()=>{
-        const cancelChange = confirm('Do you wanna dismiss the changes?');
-        if(cancelChange) {
-          inputText.value = todo.title;
-          div.style.display = 'none'
-          div.style.opacity = 0;
-          inputText.disabled = true;
+      function cancelBtnHandler(e) {
+        const deleteConfirm = confirm('Do you wanna cancel the change?');
+        if(deleteConfirm) {
+          todo.title = todo.title;
+          textInput.value = todo.title;
+          textInput.setAttribute('value', todo.title);
+          modifyHandler();
+          console.log(2)
         } else {
-          inputText.focus();
-        }
-      });
-      document.onclick = (e)=>{
-        console.log('document');
-        switch (e.target) {
-          case okBtn:
-          break;
-          case closeBtn:
-          break;
-          case editBtn:
-          break;
-          case deleteBtn:
-          break;
-          case li:
-          break;
-
-          default:
-            const cancelChange = confirm('Do you wanna dismiss the changes?');
-            if(cancelChange) {
-              inputText.value = todo.title;
-              div.style.display = 'none'
-              div.style.opacity = 0;
-              inputText.disabled = true;
-              console.log('document1')
-              document.onclick=()=>{return;}
-            } else {
-              inputText.focus();
-            }
-          break;
+          okBtn.removeEventListener('click', e=>{okBtnHandler(e)},{once:true});
+          cancelBtn.removeEventListener('click', e=>{cancelBtnHandler(e)},{once:true});
+          okBtn.addEventListener('click', e=>{okBtnHandler(e)},{once:true});
+          console.log('1');
+          cancelBtn.addEventListener('click', e=>{cancelBtnHandler(e)},{once:true});
+          textInput.disabled = false;
+          textInput.focus();
         }
       }
-    }
+    };
 
-    const moreBtn = li.querySelector('.more-btn');
-    moreBtn.addEventListener('click', ()=>{
-      li.querySelector('.modify-container').style.zIndex = 1;
-      li.querySelector('.modify-container').style.transitionDuration = '1s';
-      li.querySelector('.modify-container').style.display = 'flex';
-      li.querySelector('.delete-btn').classList.remove('md:hidden');
-      li.querySelector('.edit-btn').classList.remove('md:hidden');
-      moreBtn.style.display = 'none';
-    });
-
+    // checkbox
     input.addEventListener('click', ()=>{
       todo.done = !todo.done;
       localStorage.setItem('todos', JSON.stringify(todos));
@@ -275,7 +228,9 @@ if(page === 'main') {
     drawTodos();
     dashboardHandler();
   });  // loaded
-
+  window.addEventListener('resize',()=>{
+    drawTodos();
+  })
   username.addEventListener('blur', ()=>{
     localStorage.setItem('username', username.value);
     username.placeholder = localStorage.getItem('username') || 'Sunshine';
