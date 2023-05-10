@@ -44,6 +44,7 @@ function dashboardHandler() {
   // console.log(oneB * doneCountB);
 }; //dashboardHandler
 
+      
 function drawTodos () {
   const ul = document.querySelector('.tasks__container');
   ul.innerHTML='';
@@ -104,6 +105,7 @@ function drawTodos () {
         li.style.width = '100%';
         moreBtn.style.display = 'none';
       });
+
   
       const deleteBtn = li.querySelector('.delete-btn');
       deleteBtn.addEventListener('click', ()=>{
@@ -134,7 +136,6 @@ function drawTodos () {
         textInput.disabled = true;
         if(e.relatedTarget === okBtn) {
           okBtnHandler(e);
-          li.classList.add('w-full');
         } else if (e.relatedTarget === cancelBtn) {
           cancelBtnHandler(e);
         } else if (e.target === textInput) {} else {
