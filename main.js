@@ -63,8 +63,8 @@ function drawTodos () {
         <input type="checkbox" hidden />
         <input type="text" class="w-full" value="${todo.title}" disabled />
       </label>
-      <div class="modify-container flex md:flex hidden md:z-10">
-        <button class="more-btn md:flex hidden material-icons-outlined">more_vert</button>
+      <div class="modify-container flex md:z-10">
+        <button class="more-btn flex material-icons-outlined">more_vert</button>
         <button class="delete-btn md:hidden block pr-2 text-slate-600 material-icons-outlined">delete_outline</button>
         <button class="edit-btn md:hidden block text-slate-600 material-icons-outlined">edit</button>
       </div>
@@ -86,42 +86,12 @@ function drawTodos () {
       input.checked = false;
     }
 
-    let startX;
-    let moveX;
-    let combineHandler = (startX, moveX) => {
-      if(moveX < startX) {
-        li.classList.add('w-11/12');
-        li.querySelector('.modify-container').style.zIndex = 1;
-        li.querySelector('.modify-container').style.transitionDuration = '1s';
-        li.querySelector('.modify-container').style.display = 'flex';
-
-
-        if(li.querySelector('.edit-wrap')){
-          li.querySelector('.edit-wrap').remove();
-        }
-      }else {
-        li.style.width = '100%';
-        li.querySelector('.modify-container').style.zIndex = -1;
-        li.querySelector('.modify-container').style.transitionDuration = '0s';
-        li.querySelector('.modify-container').style.display = 'hidden';
-      }
-    };
-
-    li.addEventListener('touchstart', e=>{
-      startX = e.changedTouches[0].screenX;
-
-      li.addEventListener('touchmove', e=>{
-        moveX = e.changedTouches[0].screenX;
-        combineHandler(startX, moveX);
-      });
-    });
-
     function modifyHandler() {
       const modifyContainer = li.querySelector('.modify-container');
       modifyContainer.innerHTML=`
-        <button class="more-btn md:flex hidden material-icons-outlined">more_vert</button>
-        <button class="delete-btn md:hidden block pr-2 text-slate-600 material-icons-outlined">delete_outline</button>
-        <button class="edit-btn md:hidden block text-slate-600 material-icons-outlined">edit</button>
+        <button class="more-btn flex material-icons-outlined">more_vert</button>
+        <button class="delete-btn hidden pr-2 text-slate-600 material-icons-outlined">delete_outline</button>
+        <button class="edit-btn hidden text-slate-600 material-icons-outlined">edit</button>
       `;
 
       const moreBtn = li.querySelector('.more-btn');
@@ -129,8 +99,8 @@ function drawTodos () {
         li.querySelector('.modify-container').style.zIndex = 1;
         li.querySelector('.modify-container').style.transitionDuration = '1s';
         li.querySelector('.modify-container').style.display = 'flex';
-        li.querySelector('.delete-btn').classList.remove('md:hidden');
-        li.querySelector('.edit-btn').classList.remove('md:hidden');
+        li.querySelector('.delete-btn').classList.remove('hidden');
+        li.querySelector('.edit-btn').classList.remove('hidden');
         li.style.width = '100%';
         moreBtn.style.display = 'none';
       });
@@ -144,13 +114,13 @@ function drawTodos () {
 
       const editBtn = li.querySelector('.edit-btn');
       editBtn.addEventListener('click',()=>{
-        editHandler();
+        editHandler(modifyContainer);
       });
     };
     modifyHandler();
 
-    function editHandler() {
-      const modifyContainer = li.querySelector('.modify-container');
+    function editHandler(modifyContainer) {
+      // const modifyContainer = li.querySelector('.modify-container');
       modifyContainer.innerHTML = `
         <button class="cancelBtn material-icons-outlined mr-4">close</button>
         <button class="okBtn material-icons-outlined">circle</button>
@@ -179,7 +149,6 @@ function drawTodos () {
         todos.filter(t => t = todo);
         localStorage.setItem('todos', JSON.stringify(todos));
         modifyHandler();
-        console.log('ok func');
       };
 
       function cancelBtnHandler(e) {
@@ -273,14 +242,12 @@ if(page === 'main') {
       }
       todos.push(todo);
       localStorage.setItem('todos', JSON.stringify(todos));
-      
-      const redirection = window.confirm('Successfully added!');
-      if (redirection) {
+      const redirection = window.confirm('Successfully added! Do you want to continue adding?');
+      if (!redirection) {
         window.location.href = '/';
       }
     }
     title.value = '';
   }); //submit
 }
-
 

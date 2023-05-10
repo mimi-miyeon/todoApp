@@ -53,7 +53,7 @@
 .modify-container {
   position: absolute;
   right: 1rem;
-  z-index: -1;
+  /* z-index: -1; */
   /* opacity: 0; */
   /* transition: z-index .3s step-end; */
   /* transition-property: z-index; */
@@ -95,7 +95,7 @@ input:focus {
   border-color: #e2e8f0;
   background-color: #e2e8f0;
 }
-.task--checked p {
+.task--checked input[type="text"] {
   color: #777;
   text-decoration: line-through;
 }
